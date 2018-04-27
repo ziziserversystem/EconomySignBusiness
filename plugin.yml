@@ -1,0 +1,11 @@
+name: EconomySignBusiness
+main: economysignbusiness\Main
+version: 1.3
+api:
+ - 3.0.0
+ - 3.0.0-ALPHA11
+ - 3.0.0-ALPHA12
+depend: [EconomyAPI]
+prefix: 看板ビジネス
+load: POSTWORLD
+author: OtorisanVardo
