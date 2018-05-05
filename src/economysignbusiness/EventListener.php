@@ -76,7 +76,11 @@ class EventListener implements Listener
             if ($tag !== API::PURCHASE_TAG && $tag !== API::SELL_TAG && $tag !== API::EXCHANGE_TAG) {
                 return;
             }
-            if (!$player->isOp()) return;
+            if (!$player->isOp()) {
+            	$player->sendMessage("§c> 削除できる権限がありません");
+            	$event->setCancelled();
+            	return;
+            }
             switch ($line[0]) {
                 case API::PURCHASE_TAG:
                 case API::SELL_TAG:
