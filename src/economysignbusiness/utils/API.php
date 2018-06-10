@@ -51,7 +51,7 @@ class API
                 $player->sendMessage("§cクリエイティブモードでは購入できません");
                 return;
             }
-            $item = Item::get($data["ID"], $data["META"], $data["COUNT"]);
+            $item = Item::get((int) $data["ID"], (int) $data["META"], (int) $data["COUNT"]);
             if (!$player->getInventory()->canAddItem($item)) {
                 $player->sendMessage("§c手持ちが一杯で持てません");
                 return;
@@ -82,7 +82,7 @@ class API
             $player->sendMessage("§cクリエイティブモードでは売却できません");
             return;
         }
-        $item = Item::get($data["ID"], $data["META"], $data["COUNT"]);
+        $item = Item::get((int) $data["ID"], (int) $data["META"], (int) $data["COUNT"]);
         if (!$player->getInventory()->contains($item)) {
             $player->sendMessage("§c資材が足りません");
             return;
