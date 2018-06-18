@@ -4,7 +4,7 @@ namespace economysignbusiness\utils;
 
 use pocketmine\item\Item;
 use onebone\economyapi\EconomyAPI;
-use pocketmine\scheduler\PluginTask;
+use pocketmine\scheduler\Task;
 
 
 class API
@@ -141,8 +141,8 @@ class API
     {
         $player->sendMessage("§bもう一度タッチしてください");
         $player->cooltime = $block->asVector3();
-        $handler = $this->owner->getServer()->getScheduler()->scheduleDelayedTask(
-            new class($this->owner, $player) extends PluginTask
+        $handler = $this->owner->getScheduler()->scheduleDelayedTask(
+            new class($this->owner, $player) extends Task
             {
                 function __construct($owner, $player)
                 {
