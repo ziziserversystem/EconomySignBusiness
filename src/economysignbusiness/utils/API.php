@@ -14,7 +14,7 @@ class API
 	const PURCHASE_TAG = "§l§6[購入]";
 	const SELL_TAG = "§l§b[売却]";
 	const EXCHANGE_TAG = "§l§a[交換]";
-	const REQUIRE_FIRST_LINE = ["purchase", "buy", "sell", "exchange", "trade"];
+	const REQUIRE_FIRST_LINE = ["purchase", "buy", "sell", "change", "trade"];
 	
 
     /**
@@ -139,7 +139,7 @@ class API
      * @param  Block $block
      */
    
-	 public function checkDoProgress($player, $block, $name)
+    public function checkDoProgress($player, $block, $name)
     {
         $player->sendMessage("§bもう一度タッチしてください");
 	$this->cooltime[$name] = $block->asVector3();
@@ -149,14 +149,14 @@ class API
                 function __construct($owner, $name)
                 {
                     $this->owner = $owner;
-					$this->name = $name;
+		    $this->name = $name;
                 }
 
                 function onRun(int $tick)
                 {
-				unset($this->cooltime[$this->name]);
+		unset($this->cooltime[$this->name]);
                 }
             }, 3*20
         );
-}
+    }
 }
