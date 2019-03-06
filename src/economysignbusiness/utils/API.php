@@ -137,22 +137,22 @@ class API
      * @param Player $player
      * @param  Block $block
      */
-    public function checkDoProgress($player, $block)
+    public function checkDoProgress($player, $block, $name)
     {
         $player->sendMessage("§bもう一度タッチしてください");
-        $player->cooltime = $block->asVector3();
+        $this->cooltime[$name] = $block->asVector3();
         $handler = $this->owner->getScheduler()->scheduleDelayedTask(
-            new class($this->owner, $player) extends Task
+            new class($this->owner, $name) extends Task
             {
-                function __construct($owner, $player)
+                function __construct($owner, $name)
                 {
                     $this->owner = $owner;
-                    $this->player = $player;
+                    $this->name = $name;
                 }
 
                 function onRun(int $tick)
                 {
-                    unset($this->player->cooltime);
+                    unset($this->cooltime[$this->name]);
                 }
             }, 3*20
         );
