@@ -11,10 +11,11 @@ class API
 {
 
 	const BLOCK_SIGN = [ 63, 68, 323 ];
-	const PURCHASE_TAG = "§l§6[PURCHASE]";
-	const SELL_TAG = "§l§b[SELL]";
-	const EXCHANGE_TAG = "§l§a[EXCHANGE]";
+	const PURCHASE_TAG = "§l§6[購入]";
+	const SELL_TAG = "§l§b[売却]";
+	const EXCHANGE_TAG = "§l§a[交換]";
 	const REQUIRE_FIRST_LINE = ["purchase", "buy", "sell", "exchange", "trade"];
+	
 
     /**
      * 親クラスの継承
@@ -51,7 +52,7 @@ class API
                 $player->sendMessage("§cクリエイティブモードでは購入できません");
                 return;
             }
-            $item = Item::get((int) $data["ID"], (int) $data["META"], (int) $data["COUNT"]);
+            $item = Item::get($data["ID"], $data["META"], $data["COUNT"]);
             if (!$player->getInventory()->canAddItem($item)) {
                 $player->sendMessage("§c手持ちが一杯で持てません");
                 return;
@@ -82,7 +83,7 @@ class API
             $player->sendMessage("§cクリエイティブモードでは売却できません");
             return;
         }
-        $item = Item::get((int) $data["ID"], (int) $data["META"], (int) $data["COUNT"]);
+        $item = Item::get($data["ID"], $data["META"], $data["COUNT"]);
         if (!$player->getInventory()->contains($item)) {
             $player->sendMessage("§c資材が足りません");
             return;
@@ -131,30 +132,31 @@ class API
         $wallet = EconomyAPI::getInstance()->myMoney($player);
         return ($wallet >= $price) ? true : false;
     }
-
-    /**
+	
+	/**
      * 重複処理の確認
      * @param Player $player
      * @param  Block $block
      */
-    public function checkDoProgress($player, $block, $name)
+   
+	 public function checkDoProgress($player, $block, $name)
     {
         $player->sendMessage("§bもう一度タッチしてください");
-        $this->cooltime[$name] = $block->asVector3();
+	$this->cooltime[$name] = $block->asVector3();
         $handler = $this->owner->getScheduler()->scheduleDelayedTask(
             new class($this->owner, $name) extends Task
             {
                 function __construct($owner, $name)
                 {
                     $this->owner = $owner;
-                    $this->name = $name;
+					$this->name = $name;
                 }
 
                 function onRun(int $tick)
                 {
-                    unset($this->cooltime[$this->name]);
+				unset($this->cooltime[$this->name]);
                 }
             }, 3*20
         );
-    }
+}
 }
