@@ -17,7 +17,7 @@ use onebone\economyapi\EconomyAPI;
 class EventListener implements Listener
 {
 	
-	public $cooltime;
+    public $cooltime;
 
     public function __construct($owner)
     {
@@ -29,7 +29,7 @@ class EventListener implements Listener
     {
         $player = $event->getPlayer();
         $block = $event->getBlock();
-		$name = $player->getName();
+	$name = $player->getName();
         if (!in_array($block->getId(), API::BLOCK_SIGN)) return;
         $tile = $player->getLevel()->getTile($block);
         if ($tile instanceof Sign) {
@@ -41,7 +41,7 @@ class EventListener implements Listener
             }
             $unit = EconomyAPI::getInstance()->getMonetaryUnit();
 			
-			if (!isset($this->cooltime[$name])) {
+		if (!isset($this->cooltime[$name])) {
                 $this->getApi()->checkDoProgress($player, $block, $name);
                 return;
             }
@@ -168,7 +168,7 @@ class EventListener implements Listener
                 $player->sendMessage("§a> 売却看板を作りました");
                 break;
 
-            case "exchange":
+            case "change":
             case "trade":
                 $material = explode(":", $line[1]);
                 $goods = explode(":", $line[2]);
