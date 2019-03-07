@@ -17,7 +17,7 @@ use onebone\economyapi\EconomyAPI;
 class EventListener implements Listener
 {
 	
-    public $cooltime;
+	public $cooltime;
 
     public function __construct($owner)
     {
@@ -29,7 +29,7 @@ class EventListener implements Listener
     {
         $player = $event->getPlayer();
         $block = $event->getBlock();
-	$name = $player->getName();
+		$name = $player->getName();
         if (!in_array($block->getId(), API::BLOCK_SIGN)) return;
         $tile = $player->getLevel()->getTile($block);
         if ($tile instanceof Sign) {
@@ -41,12 +41,12 @@ class EventListener implements Listener
             }
             $unit = EconomyAPI::getInstance()->getMonetaryUnit();
 			
-		if (!isset($this->cooltime[$name])) {
-                $this->getApi()->checkDoProgress($player, $block, $name);
+			if (!isset($this->cooltime[$name])) {
+                $this->checkDoProgress($player, $block, $name);
                 return;
             }
 		if ($block->asVector3() != $this->cooltime[$name]) {
-                $this->getApi()->checkDoProgress($player, $block, $name);
+                $this->checkDoProgress($player, $block, $name);
                 return;
             }
             unset($this->cooltime[$name]);
@@ -168,7 +168,7 @@ class EventListener implements Listener
                 $player->sendMessage("§a> 売却看板を作りました");
                 break;
 
-            case "change":
+            case "exchange":
             case "trade":
                 $material = explode(":", $line[1]);
                 $goods = explode(":", $line[2]);
@@ -205,4 +205,24 @@ class EventListener implements Listener
     {
         return $this->owner->provider;
     }
+	 public function checkDoProgress($player, $block, $name)
+    {
+        $player->sendMessage("§bもう一度タッチしてください");
+	$this->cooltime[$name] = $block->asVector3();
+        $handler = $this->owner->getScheduler()->scheduleDelayedTask(
+            new class($this->owner, $name) extends Task
+            {
+                function __construct($owner, $name)
+                {
+                    $this->owner = $owner;
+					$this->name = $name;
+                }
+
+                function onRun(int $tick)
+                {
+				unset($this->cooltime[$this->name]);
+                }
+            }, 3*20
+        );
+}
 }
