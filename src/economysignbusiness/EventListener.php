@@ -42,11 +42,11 @@ class EventListener implements Listener
             $unit = EconomyAPI::getInstance()->getMonetaryUnit();
 			
 			if (!isset($this->cooltime[$name])) {
-                $this->checkDoProgress($player, $block, $name);
+                $this->getApi()->checkDoProgress($player, $block, $name);
                 return;
             }
 		if ($block->asVector3() != $this->cooltime[$name]) {
-                $this->checkDoProgress($player, $block, $name);
+                $this->getApi()->checkDoProgress($player, $block, $name);
                 return;
             }
             unset($this->cooltime[$name]);
@@ -168,7 +168,7 @@ class EventListener implements Listener
                 $player->sendMessage("§a> 売却看板を作りました");
                 break;
 
-            case "exchange":
+            case "change":
             case "trade":
                 $material = explode(":", $line[1]);
                 $goods = explode(":", $line[2]);
