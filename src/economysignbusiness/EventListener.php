@@ -42,11 +42,11 @@ class EventListener implements Listener
             $unit = EconomyAPI::getInstance()->getMonetaryUnit();
 			
 			if (!isset($this->cooltime[$name])) {
-                $this->getApi()->checkDoProgress($player, $block, $name);
+                $this->checkDoProgress($player, $block, $name);
                 return;
             }
 		if ($block->asVector3() != $this->cooltime[$name]) {
-                $this->getApi()->checkDoProgress($player, $block, $name);
+                $this->checkDoProgress($player, $block, $name);
                 return;
             }
             unset($this->cooltime[$name]);
