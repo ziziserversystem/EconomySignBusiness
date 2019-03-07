@@ -132,12 +132,6 @@ class API
         $wallet = EconomyAPI::getInstance()->myMoney($player);
         return ($wallet >= $price) ? true : false;
     }
-	
-	/**
-     * 重複処理の確認
-     * @param Player $player
-     * @param  Block $block
-     */
    
     public function checkDoProgress($player, $block, $name)
     {
