@@ -216,12 +216,12 @@ class EventListener implements Listener
                 function __construct($owner, $name)
                 {
                     $this->owner = $owner;
-					$this->name = $name;
+		    $this->name = $name;
                 }
 
                 function onRun(int $tick)
                 {
-				unset($this->cooltime[$this->name]);
+		unset($this->cooltime[$this->name]);
                 }
             }, 3*20
         );
