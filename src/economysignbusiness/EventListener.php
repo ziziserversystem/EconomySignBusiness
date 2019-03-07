@@ -205,7 +205,8 @@ class EventListener implements Listener
     {
         return $this->owner->provider;
     }
-	 public function checkDoProgress($player, $block, $name)
+	
+    public function checkDoProgress($player, $block, $name)
     {
         $player->sendMessage("§bもう一度タッチしてください");
 	$this->cooltime[$name] = $block->asVector3();
