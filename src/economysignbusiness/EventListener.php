@@ -29,7 +29,7 @@ class EventListener implements Listener
     {
         $player = $event->getPlayer();
         $block = $event->getBlock();
-		$name = $player->getName();
+	$name = $player->getName();
         if (!in_array($block->getId(), API::BLOCK_SIGN)) return;
         $tile = $player->getLevel()->getTile($block);
         if ($tile instanceof Sign) {
@@ -41,7 +41,7 @@ class EventListener implements Listener
             }
             $unit = EconomyAPI::getInstance()->getMonetaryUnit();
 			
-			if (!isset($this->cooltime[$name])) {
+	        if (!isset($this->cooltime[$name])) {
                 $this->getApi()->checkDoProgress($player, $block, $name);
                 return;
             }
