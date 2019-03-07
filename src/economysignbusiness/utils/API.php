@@ -11,9 +11,9 @@ class API
 {
 
 	const BLOCK_SIGN = [ 63, 68, 323 ];
-	const PURCHASE_TAG = "§l§6[購入]";
-	const SELL_TAG = "§l§b[売却]";
-	const EXCHANGE_TAG = "§l§a[交換]";
+	const PURCHASE_TAG = "§l§6[SHOP]";
+	const SELL_TAG = "§l§b[SELL]";
+	const EXCHANGE_TAG = "§l§a[CHANGE]";
 	const REQUIRE_FIRST_LINE = ["purchase", "buy", "sell", "change", "trade"];
 	
 
@@ -24,27 +24,6 @@ class API
 	{
 		$this->owner = $owner;
 	}
-	
-    public function checkDoProgress($player, $block, $name)
-    {
-        $player->sendMessage("§bもう一度タッチしてください");
-	$this->cooltime[$name] = $block->asVector3();
-        $handler = $this->owner->getScheduler()->scheduleDelayedTask(
-            new class($this->owner, $name) extends Task
-            {
-                function __construct($owner, $name)
-                {
-                    $this->owner = $owner;
-		    $this->name = $name;
-                }
-
-                function onRun(int $tick)
-                {
-		unset($this->cooltime[$this->name]);
-                }
-            }, 3*20
-        );
-     }
 
     /**
      * データファイルのクラス
