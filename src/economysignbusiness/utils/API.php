@@ -11,7 +11,7 @@ class API
 {
 
 	const BLOCK_SIGN = [ 63, 68, 323 ];
-	const PURCHASE_TAG = "§l§6[SHOP]";
+	const PURCHASE_TAG = "§l§6[PURCHASE]";
 	const SELL_TAG = "§l§b[SELL]";
 	const EXCHANGE_TAG = "§l§a[CHANGE]";
 	const REQUIRE_FIRST_LINE = ["purchase", "buy", "sell", "change", "trade"];
