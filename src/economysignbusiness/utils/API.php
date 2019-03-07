@@ -14,7 +14,7 @@ class API
 	const PURCHASE_TAG = "§l§6[購入]";
 	const SELL_TAG = "§l§b[売却]";
 	const EXCHANGE_TAG = "§l§a[交換]";
-	const REQUIRE_FIRST_LINE = ["purchase", "buy", "sell", "exchange", "trade"];
+	const REQUIRE_FIRST_LINE = ["purchase", "buy", "sell", "change", "trade"];
 	
 
     /**
@@ -158,6 +158,5 @@ class API
                 }
             }, 3*20
         );
-
-	
+     }
 }
