@@ -14,7 +14,7 @@ class API
 	const PURCHASE_TAG = "§l§6[PURCHASE]";
 	const SELL_TAG = "§l§b[SELL]";
 	const EXCHANGE_TAG = "§l§a[CHANGE]";
-	const REQUIRE_FIRST_LINE = ["purchase", "buy", "sell", "change", "trade"];
+	const REQUIRE_FIRST_LINE = ["buy", "sell", "change", "trade"];
 	
 
     /**
@@ -43,25 +43,25 @@ class API
         $xyz = $this->getProvider()->getCoordinate($tapBlock);
         $data = $this->getProvider()->getShopData($xyz);
         if ($data == false) {
-            $player->sendMessage("§cデータがありません");
+            $player->sendMessage("§a【運営】 §cデータがありません");
             return;
         }
         $price = $data["PRICE"];
         if ($this->hasEnoughMoney($player, $price)) {
             if ($player->isCreative()) {
-                $player->sendMessage("§cクリエイティブモードでは購入できません");
+                $player->sendMessage("§a【運営】 §cクリエイティブモードでは購入できません");
                 return;
             }
             $item = Item::get($data["ID"], $data["META"], $data["COUNT"]);
             if (!$player->getInventory()->canAddItem($item)) {
-                $player->sendMessage("§c手持ちが一杯で持てません");
+                $player->sendMessage("§a【運営】 §c手持ちが一杯で持てません");
                 return;
             }
             EconomyAPI::getInstance()->reduceMoney($player, $price);
             $player->getInventory()->addItem($item);
-            $player->sendMessage("§a購入が完了しました");
+            $player->sendMessage("§a【運営】 §f購入が完了しました");
         } else {
-            $player->sendMessage("§cお金が足りません");
+            $player->sendMessage("§a【運営】 §cお金が足りません");
         }
     }
 
@@ -75,22 +75,22 @@ class API
         $xyz = $this->getProvider()->getCoordinate($tapBlock);
         $data = $this->getProvider()->getShopData($xyz);
         if ($data == false) {
-            $player->sendMessage("§cデータがありません");
+            $player->sendMessage("§a【運営】 §cデータがありません");
             return;
         }
         $price = $data["PRICE"];
         if ($player->isCreative()) {
-            $player->sendMessage("§cクリエイティブモードでは売却できません");
+            $player->sendMessage("§a【運営】 §cクリエイティブモードでは売却できません");
             return;
         }
         $item = Item::get($data["ID"], $data["META"], $data["COUNT"]);
         if (!$player->getInventory()->contains($item)) {
-            $player->sendMessage("§c資材が足りません");
+            $player->sendMessage("§a【運営】 §c資材が足りません");
             return;
         }
         EconomyAPI::getInstance()->addMoney($player, $price);
         $player->getInventory()->removeItem($item);
-        $player->sendMessage("§a売却が完了しました");
+        $player->sendMessage("§a【運営】 §f売却が完了しました");
     }
 
     /**
@@ -103,22 +103,22 @@ class API
         $xyz = $this->getProvider()->getCoordinate($tapBlock);
         $data = $this->getProvider()->getShopData($xyz);
         if ($data == false) {
-            $player->sendMessage("§cデータがありません");
+            $player->sendMessage("§a【運営】 §cデータがありません");
             return;
         }
         if ($player->isCreative()) {
-            $player->sendMessage("§cクリエイティブモードでは取引できません");
+            $player->sendMessage("§a【運営】 §cクリエイティブモードでは取引できません");
             return;
         }
         $material = Item::get((int)$data["FROM"]["ID"], (int)$data["FROM"]["META"], (int)$data["FROM"]["COUNT"]);
         $goods = Item::get((int)$data["TO"]["ID"], (int)$data["TO"]["META"], (int)$data["TO"]["COUNT"]);
         if (!$player->getInventory()->contains($material)) {
-            $player->sendMessage("§c資材が足りません");
+            $player->sendMessage("§a【運営】 §c資材が足りません");
             return;
         }
         $player->getInventory()->removeItem($material);
         $player->getInventory()->addItem($goods);
-        $player->sendMessage("§a取引が完了しました");
+        $player->sendMessage("§a【運営】 §f取引が完了しました");
     }
 
     /**
